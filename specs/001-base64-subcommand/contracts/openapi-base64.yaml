@@ -1,0 +1,53 @@
+openapi: 3.0.0
+info:
+  title: Base64 CLI Command API
+  version: 1.0.0
+paths:
+  /base64/encode:
+    post:
+      summary: Base64エンコード
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                input:
+                  type: string
+      responses:
+        '200':
+          description: 正常終了
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  output:
+                    type: string
+        '400':
+          description: 入力エラー
+  /base64/decode:
+    post:
+      summary: Base64デコード
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                input:
+                  type: string
+      responses:
+        '200':
+          description: 正常終了
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  output:
+                    type: string
+        '400':
+          description: 入力エラー
