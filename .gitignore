@@ -1,0 +1,31 @@
+# Go
+bin/
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+*.test
+*.out
+*.log
+*.tmp
+*.swp
+*.DS_Store
+*.vscode/
+.idea/
+# Go modules
+vendor/
+# Build output
+dist/
+build/
+# Dependency directories (remove the comment below if you use Go vendor)
+# vendor/
+# Environment files
+.env*
+# Test cache
+*.coverprofile
+*.testresult
+# OS generated files
+Thumbs.db
+# Git
+.git/
