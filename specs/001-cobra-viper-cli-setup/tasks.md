@@ -46,17 +46,17 @@ description: "Go CLI雛形（cobra/viper）実装タスク一覧"
 
 ## Phase 5: [US3] CI/リリース自動化基盤
 
-- [ ] T020 [US3] GitHub ActionsでPR作成時にCIが自動実行されることを確認
-- [ ] T021 [P] [US3] GoReleaser雛形ファイル作成（.goreleaser.yml）
-- [ ] T022 [US3] GoReleaser雛形が将来のHomebrew配布拡張に対応できることを確認
+- [X] T020 [US3] GitHub ActionsでPR作成時にCIが自動実行されることを確認
+- [X] T021 [P] [US3] GoReleaser雛形ファイル作成（.goreleaser.yml）
+- [X] T022 [US3] GoReleaser雛形が将来のHomebrew配布拡張に対応できることを確認
 
 ---
 
 ## Final Phase: Polish & Cross-Cutting
 
-- [ ] T023 [P] 不要ファイル・テンプレート残骸除去
-- [ ] T024 [P] Makefileの.PHONY/ターゲット最終調整
-- [ ] T025 全体の仕様・clarify・plan・README/コメント/CI/Makefile/ディレクトリ構成の整合性最終チェック
+- [X] T023 [P] 不要ファイル・テンプレート残骸除去
+- [X] T024 [P] Makefileの.PHONY/ターゲット最終調整
+- [X] T025 全体の仕様・clarify・plan・README/コメント/CI/Makefile/ディレクトリ構成の整合性最終チェック
 
 ---
 

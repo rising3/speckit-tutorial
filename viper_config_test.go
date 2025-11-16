@@ -37,9 +37,19 @@ func TestViperConfigFileExist(t *testing.T) {
 	if err != nil {
 		t.Fatalf("設定ファイル作成失敗: %v", err)
 	}
-	defer os.Remove(configFile)
-	defer f.Close()
-	f.WriteString("key: value\n")
+	defer func() {
+		if err := os.Remove(configFile); err != nil {
+			t.Errorf("設定ファイル削除失敗: %v", err)
+		}
+	}()
+	defer func() {
+		if err := f.Close(); err != nil {
+			t.Errorf("ファイルクローズ失敗: %v", err)
+		}
+	}()
+	if _, err := f.WriteString("key: value\n"); err != nil {
+		t.Fatalf("設定ファイル書き込み失敗: %v", err)
+	}
 	viper.Reset()
 	viper.AddConfigPath(configDir)
 	viper.SetConfigName("mycli")
