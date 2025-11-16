@@ -29,9 +29,18 @@
 
 ## Constitution Check
 
-*GATE: Must pass before Phase 0 research. Re-check after Phase 1 design.*
+**GATE: フェーズ0開始前・フェーズ1設計後に必ず下記を満たすこと**
 
-[Gates determined based on constitution file]
+- Go 1.25、cobra@latest、viper@latestを利用しているか
+- main.goをエントリポイントとし、internalパッケージで内部実装を分離しているか
+- 設定管理にviperを利用し、CLIコマンド・フラグ・設定ファイルの一貫性があるか
+- gofmtで整形、golangci-lint（govetのみ）で静的解析をパスしているか
+- Makefileでビルド・テスト・フォーマット・リンター・.PHONY管理をしているか
+- バイナリはbin/配下に出力されているか
+- すべての新規・追加モジュールに単体テストがあり、TDDサイクルを守っているか
+- CLIの応答・体感パフォーマンスに問題がないか
+
+違反がある場合は、理由・代替案をComplexity Trackingに必ず記載すること。
 
 ## Project Structure
 

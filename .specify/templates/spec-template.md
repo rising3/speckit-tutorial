@@ -77,23 +77,18 @@
 
 ## Requirements *(mandatory)*
 
-<!--
-  ACTION REQUIRED: The content in this section represents placeholders.
-  Fill them out with the right functional requirements.
--->
+### CLI憲法に基づく必須要件
 
-### Functional Requirements
+- Go 1.25、cobra@latest、viper@latestを利用すること
+- main.goをエントリポイントとし、internalパッケージで内部実装を分離すること
+- 設定管理はviperで一元化すること
+- gofmtで整形、golangci-lint（govetのみ）で静的解析をパスすること
+- Makefileでビルド・テスト・フォーマット・リンター・.PHONY管理を徹底すること
+- バイナリはbin/配下に出力すること
+- すべての新規・追加モジュールに単体テストがあり、TDDサイクルを守ること
+- CLIの応答・体感パフォーマンスに問題がないこと
 
-- **FR-001**: System MUST [specific capability, e.g., "allow users to create accounts"]
-- **FR-002**: System MUST [specific capability, e.g., "validate email addresses"]  
-- **FR-003**: Users MUST be able to [key interaction, e.g., "reset their password"]
-- **FR-004**: System MUST [data requirement, e.g., "persist user preferences"]
-- **FR-005**: System MUST [behavior, e.g., "log all security events"]
-
-*Example of marking unclear requirements:*
-
-- **FR-006**: System MUST authenticate users via [NEEDS CLARIFICATION: auth method not specified - email/password, SSO, OAuth?]
-- **FR-007**: System MUST retain user data for [NEEDS CLARIFICATION: retention period not specified]
+上記に違反する場合は、必ず理由・代替案を明記すること。
 
 ### Key Entities *(include if feature involves data)*
 

@@ -1,50 +1,66 @@
-# [PROJECT_NAME] Constitution
-<!-- Example: Spec Constitution, TaskFlow Constitution, etc. -->
+
+<!--
+Sync Impact Report
+------------------
+Version change: (none → 1.0.0)
+原則: テンプレートからCLI開発特化原則へ全面具体化
+追加: コア原則5件、追加要件、開発ワークフロー、ガバナンス
+削除: テンプレートの例示コメント
+テンプレート整合: plan/spec/tasks-templateのConstitution Check/必須要件に整合
+コマンド/README/quickstart等: 現状未発見・未存在のため影響なし
+TODO: RATIFICATION_DATEは要確定（現状はTODO表記）
+-->
+
+# speckit-tutorial CLI Constitution
 
 ## Core Principles
 
-### [PRINCIPLE_1_NAME]
-<!-- Example: I. Library-First -->
-[PRINCIPLE_1_DESCRIPTION]
-<!-- Example: Every feature starts as a standalone library; Libraries must be self-contained, independently testable, documented; Clear purpose required - no organizational-only libraries -->
 
-### [PRINCIPLE_2_NAME]
-<!-- Example: II. CLI Interface -->
-[PRINCIPLE_2_DESCRIPTION]
-<!-- Example: Every library exposes functionality via CLI; Text in/out protocol: stdin/args → stdout, errors → stderr; Support JSON + human-readable formats -->
+### I. コード品質と一貫性
+すべてのGoコードはgofmtで整形し、golangci-lint（govetのみ有効）で静的解析を必須とする。main.goをエントリポイントとし、内部実装はinternalパッケージ配下に配置する。Makefileでビルド・テスト・フォーマット・リンターを管理し、.PHONYを明示する。
+**根拠**: 一貫した品質・保守性・CI/CD自動化のため。
 
-### [PRINCIPLE_3_NAME]
-<!-- Example: III. Test-First (NON-NEGOTIABLE) -->
-[PRINCIPLE_3_DESCRIPTION]
-<!-- Example: TDD mandatory: Tests written → User approved → Tests fail → Then implement; Red-Green-Refactor cycle strictly enforced -->
+### II. CLI設計とユーザー体験
+CLIはcobraを用いて実装し、設定管理はviperを利用する。コマンド・フラグ・設定ファイルの一貫性と分かりやすさを重視し、エラーメッセージ・ヘルプ・出力形式の統一を徹底する。
+**根拠**: ユーザー体験の向上と運用性・拡張性の確保。
 
-### [PRINCIPLE_4_NAME]
-<!-- Example: IV. Integration Testing -->
-[PRINCIPLE_4_DESCRIPTION]
-<!-- Example: Focus areas requiring integration tests: New library contract tests, Contract changes, Inter-service communication, Shared schemas -->
+### III. テスト駆動開発（TDD）
+すべての新規・追加モジュールは、実装前に単体テストコードを同一パッケージ内に作成し、テスト→フォーマット→リンターを全てパスすることを必須とする。Red-Green-Refactorサイクルを厳守する。
+**根拠**: バグの早期発見・仕様担保・リファクタ容易化のため。
 
-### [PRINCIPLE_5_NAME]
-<!-- Example: V. Observability, VI. Versioning & Breaking Changes, VII. Simplicity -->
-[PRINCIPLE_5_DESCRIPTION]
-<!-- Example: Text I/O ensures debuggability; Structured logging required; Or: MAJOR.MINOR.BUILD format; Or: Start simple, YAGNI principles -->
+### IV. パフォーマンス要件
+CLIの起動・主要コマンドの応答は体感遅延なく完了すること。パフォーマンス劣化が懸念される場合は、ベンチマーク・プロファイリングを実施し、必要に応じて最適化を行う。
+**根拠**: CLIの実用性・信頼性維持のため。
 
-## [SECTION_2_NAME]
-<!-- Example: Additional Constraints, Security Requirements, Performance Standards, etc. -->
+### V. モジュール構成と公開範囲
+公開API/コマンド以外の内部実装はinternalパッケージ以下に配置し、外部公開を防ぐ。バイナリはbinディレクトリに出力する。
+**根拠**: モジュールの責務分離・安全性・配布容易化のため。
 
-[SECTION_2_CONTENT]
-<!-- Example: Technology stack requirements, compliance standards, deployment policies, etc. -->
 
-## [SECTION_3_NAME]
-<!-- Example: Development Workflow, Review Process, Quality Gates, etc. -->
+## 追加要件
 
-[SECTION_3_CONTENT]
-<!-- Example: Code review requirements, testing gates, deployment approval process, etc. -->
+- Goバージョンは1.25を使用すること。
+- cobra@latest、viper@latestを利用すること。
+- CLI設定はviperで一元管理すること。
+- ビルド成果物はbin/配下に出力すること。
+- 単体テストはgo testで実行し、実装コードと同じパッケージに配置すること。
+- Makefileで全ビルド・テスト・フォーマット・リンター・.PHONY管理を徹底すること。
+- プロジェクトルートは.githubディレクトリが存在するディレクトリとする。
 
-## Governance
-<!-- Example: Constitution supersedes all other practices; Amendments require documentation, approval, migration plan -->
 
-[GOVERNANCE_RULES]
-<!-- Example: All PRs/reviews must verify compliance; Complexity must be justified; Use [GUIDANCE_FILE] for runtime development guidance -->
+## 開発ワークフロー・品質ゲート
 
-**Version**: [CONSTITUTION_VERSION] | **Ratified**: [RATIFICATION_DATE] | **Last Amended**: [LAST_AMENDED_DATE]
-<!-- Example: Version: 2.1.1 | Ratified: 2025-06-13 | Last Amended: 2025-07-16 -->
+- すべての実装はTDD原則に従い、テスト→フォーマット→リンター（govet）を全てパスすること。
+- コードレビュー時は上記原則・追加要件の遵守を必ず確認すること。
+- 仕様追加・変更時はplan/spec/tasksテンプレートのConstitution Checkに基づき、原則違反がないか確認すること。
+
+
+## ガバナンス
+
+- 本Constitutionはプロジェクトの最上位規範とし、他の慣習・ガイドラインより優先する。
+- 改訂時はバージョンをセマンティックバージョニングで管理し、変更内容・影響範囲を明記すること。
+- 重大な原則変更（削除・大幅な再定義）はMAJOR、原則追加・拡張はMINOR、文言修正・明確化はPATCHでバージョンを上げる。
+- 改訂時はplan/spec/tasks-templateのConstitution Check・必須要件も必ず同期・整合させること。
+- 準拠状況は定期的にレビューし、違反があれば速やかに是正すること。
+
+**Version**: 1.0.0 | **Ratified**: TODO(RATIFICATION_DATE) | **Last Amended**: 2025-11-16
