@@ -23,12 +23,18 @@ import (
 	"github.com/spf13/viper"
 )
 
+const (
+	CliName    = "mycli"
+	CliVersion = "dev"
+)
+
 var cfgFile string
 
 // rootCmd represents the base command when called without any subcommands
 var rootCmd = &cobra.Command{
-	Use:   "mycli",
-	Short: "A brief description of your application",
+	Use:     CliName,
+	Version: CliVersion,
+	Short:   "A brief description of your application",
 	Long: `A longer description that spans multiple lines and likely contains
 examples and usage of using your application. For example:
 
