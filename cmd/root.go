@@ -79,8 +79,10 @@ func initConfig() {
 		home, err := os.UserHomeDir()
 		cobra.CheckErr(err)
 
-		// Search config in home directory with name ".mycli" (without extension).
+		sep := string(os.PathSeparator)
 		viper.AddConfigPath(home)
+		viper.AddConfigPath(home + sep + ".config")
+		viper.AddConfigPath(home + sep + ".config" + sep + "mycli")
 		viper.SetConfigType("yaml")
 		viper.SetConfigName(".mycli")
 	}
