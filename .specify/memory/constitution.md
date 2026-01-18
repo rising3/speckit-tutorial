@@ -1,50 +1,53 @@
-# [PROJECT_NAME] Constitution
-<!-- Example: Spec Constitution, TaskFlow Constitution, etc. -->
+
+<!--
+Sync Impact Report
+------------------
+Version change: (none → 1.0.0)
+Principles defined: コード品質, テスト基準, ユーザー体験の一貫性, パフォーマンス要件
+Added sections: なし（テンプレート通り）
+Removed sections: なし
+Templates requiring updates: ✅ plan-template.md, ✅ spec-template.md, ✅ tasks-template.md（整合性確認済）
+Follow-up TODOs: なし
+-->
+
+# speckit-tutorial 憲章
 
 ## Core Principles
 
-### [PRINCIPLE_1_NAME]
-<!-- Example: I. Library-First -->
-[PRINCIPLE_1_DESCRIPTION]
-<!-- Example: Every feature starts as a standalone library; Libraries must be self-contained, independently testable, documented; Clear purpose required - no organizational-only libraries -->
 
-### [PRINCIPLE_2_NAME]
-<!-- Example: II. CLI Interface -->
-[PRINCIPLE_2_DESCRIPTION]
-<!-- Example: Every library exposes functionality via CLI; Text in/out protocol: stdin/args → stdout, errors → stderr; Support JSON + human-readable formats -->
+### I. コード品質
+すべてのコードは可読性・保守性・一貫性を最優先し、静的解析・リント・自動フォーマットを必須とする。命名規則・スタイルガイドに準拠し、レビューで逸脱があれば修正しなければならない。
+**根拠**: 品質基準を明文化することで、長期的な技術的負債を防ぐ。
 
-### [PRINCIPLE_3_NAME]
-<!-- Example: III. Test-First (NON-NEGOTIABLE) -->
-[PRINCIPLE_3_DESCRIPTION]
-<!-- Example: TDD mandatory: Tests written → User approved → Tests fail → Then implement; Red-Green-Refactor cycle strictly enforced -->
+### II. テスト基準
+すべての機能追加・修正は、単体テスト・統合テスト・受け入れテストを含めたテスト駆動開発（TDD）を原則とする。テストは自動化され、失敗した状態でのマージは禁止。
+**根拠**: バグの早期発見と回帰防止、信頼性担保のため。
 
-### [PRINCIPLE_4_NAME]
-<!-- Example: IV. Integration Testing -->
-[PRINCIPLE_4_DESCRIPTION]
-<!-- Example: Focus areas requiring integration tests: New library contract tests, Contract changes, Inter-service communication, Shared schemas -->
+### III. ユーザー体験の一貫性
+UI/UX設計は一貫性・直感性・アクセシビリティを重視し、デザインシステムや共通コンポーネントを活用する。ユーザー操作の予測可能性と分かりやすさを保証すること。
+**根拠**: 利用者満足度と学習コスト低減のため。
 
-### [PRINCIPLE_5_NAME]
-<!-- Example: V. Observability, VI. Versioning & Breaking Changes, VII. Simplicity -->
-[PRINCIPLE_5_DESCRIPTION]
-<!-- Example: Text I/O ensures debuggability; Structured logging required; Or: MAJOR.MINOR.BUILD format; Or: Start simple, YAGNI principles -->
+### IV. パフォーマンス要件
+主要機能は事前に性能目標（例: 応答時間、同時ユーザー数、リソース消費）を定め、リリース前にベンチマーク・負荷試験を実施する。性能劣化が検知された場合は優先的に改善する。
+**根拠**: スケーラビリティと快適な利用体験の維持。
 
-## [SECTION_2_NAME]
-<!-- Example: Additional Constraints, Security Requirements, Performance Standards, etc. -->
 
-[SECTION_2_CONTENT]
-<!-- Example: Technology stack requirements, compliance standards, deployment policies, etc. -->
 
-## [SECTION_3_NAME]
-<!-- Example: Development Workflow, Review Process, Quality Gates, etc. -->
+## 追加要件
+* 技術スタック・依存ライブラリは事前に合意し、重大な変更は合意プロセスを経ること。
+* セキュリティ要件（脆弱性検査・依存性監査）を全リリースで実施。
+* ドキュメント・設計書は常に最新状態を維持。
 
-[SECTION_3_CONTENT]
-<!-- Example: Code review requirements, testing gates, deployment approval process, etc. -->
+## 開発ワークフロー・品質ゲート
+* すべてのPull Requestは自動テスト・静的解析・レビュープロセスを通過しなければならない。
+* テストカバレッジ閾値（例: 90%以上）を下回る変更は原則禁止。
+* デプロイ前にユーザー体験・性能・セキュリティの最終確認を実施。
 
 ## Governance
-<!-- Example: Constitution supersedes all other practices; Amendments require documentation, approval, migration plan -->
 
-[GOVERNANCE_RULES]
-<!-- Example: All PRs/reviews must verify compliance; Complexity must be justified; Use [GUIDANCE_FILE] for runtime development guidance -->
+この憲章は他の開発慣行より優先される。改定には合意・記録・影響範囲の明示が必要。すべてのPR・レビューで本憲章への準拠を確認し、逸脱時は理由を明記しなければならない。バージョン管理はセマンティックバージョニング（MAJOR.MINOR.PATCH）に従う。
+
+**Version**: 1.0.0 | **Ratified**: 2026-01-18 | **Last Amended**: 2026-01-18
 
 **Version**: [CONSTITUTION_VERSION] | **Ratified**: [RATIFICATION_DATE] | **Last Amended**: [LAST_AMENDED_DATE]
 <!-- Example: Version: 2.1.1 | Ratified: 2025-06-13 | Last Amended: 2025-07-16 -->
