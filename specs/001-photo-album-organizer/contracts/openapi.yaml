@@ -1,0 +1,142 @@
+openapi: 3.0.0
+info:
+  title: Photo Album Organizer Local API
+  version: 1.0.0
+description: |
+  ローカルDB・UI操作用の仮想API（実装はJS関数群）
+servers:
+  - url: http://localhost
+paths:
+  /albums:
+    get:
+      summary: アルバム一覧取得
+      responses:
+        '200':
+          description: アルバムリスト
+    post:
+      summary: 新規アルバム作成
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Album'
+      responses:
+        '201':
+          description: 作成成功
+  /albums/{albumId}:
+    patch:
+      summary: アルバム情報編集
+      parameters:
+        - name: albumId
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Album'
+      responses:
+        '200':
+          description: 更新成功
+    delete:
+      summary: アルバム削除
+      parameters:
+        - name: albumId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '204':
+          description: 削除成功
+  /albums/{albumId}/photos:
+    get:
+      summary: アルバム内写真一覧取得
+      parameters:
+        - name: albumId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: 写真リスト
+    post:
+      summary: 写真追加
+      parameters:
+        - name: albumId
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Photo'
+      responses:
+        '201':
+          description: 追加成功
+  /photos/{photoId}:
+    patch:
+      summary: 写真情報編集
+      parameters:
+        - name: photoId
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Photo'
+      responses:
+        '200':
+          description: 更新成功
+    delete:
+      summary: 写真削除
+      parameters:
+        - name: photoId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '204':
+          description: 削除成功
+components:
+  schemas:
+    Album:
+      type: object
+      properties:
+        id:
+          type: string
+        title:
+          type: string
+        date:
+          type: string
+        order:
+          type: integer
+        photos:
+          type: array
+          items:
+            $ref: '#/components/schemas/Photo'
+    Photo:
+      type: object
+      properties:
+        id:
+          type: string
+        filePath:
+          type: string
+        thumbnail:
+          type: string
+        date:
+          type: string
+        albumId:
+          type: string
+        metadata:
+          type: object
+          additionalProperties: true
