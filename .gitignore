@@ -1,0 +1,58 @@
+# Node.js dependencies
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Build outputs
+dist/
+build/
+.vite/
+*.local
+
+# Test coverage
+coverage/
+.nyc_output/
+test-results/
+playwright-report/
+playwright/.cache/
+
+# Environment variables
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# IDEs and editors
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+
+# Logs
+logs/
+*.log
+
+# Temporary files
+*.tmp
+.cache/
+.temp/
+
+# SQL.js files (copied to public at build time)
+public/sql-wasm.wasm
+public/sql-wasm.js
+
+# OS files
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# Misc
+*.seed
+*.pid
+*.pid.lock
