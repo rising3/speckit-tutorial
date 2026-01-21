@@ -5,6 +5,16 @@
 **Status**: Draft  
 **Input**: User description: "Build an application that can help me organize my photos in separate photo albums. Albums are grouped by date and can be re-organized by dragging and dropping on the main page. Albums are never in other nested albums. Within each album, photos are previewed in a tile-like interface."
 
+## Clarifications
+
+### Session 2026-01-21
+
+- Q: When users add photos to an album, what should happen if a photo already belongs to another album? → A: Photos can exist in multiple albums - adding to new album keeps in old album (reference/link model)
+- Q: When an album contains photos from different dates, how should the album's display date be determined? → A: Earliest photo date
+- Q: How should users select photos to add to an album? → A: File picker dialog with multi-select capability
+- Q: When an album has no photos (empty album), how should it be displayed on the main page? → A: Empty albums shown with placeholder and "No photos" text
+- Q: What should happen when a user tries to create an album but doesn't add any photos to it immediately? → A: Album is created and user is prompted to add photos (can skip)
+
 ## User Scenarios & Testing *(mandatory)*
 
 ### User Story 1 - View and Browse Photos in Albums (Priority: P1)
@@ -34,11 +44,13 @@ Users can create new photo albums and add photos to them. Each album is automati
 
 **Acceptance Scenarios**:
 
-1. **Given** user is on the main page, **When** user initiates "create album" action, **Then** a new empty album is created
-2. **Given** a new album exists, **When** user adds photos to the album, **Then** photos are stored in the album and the album's date is set based on photo dates
-3. **Given** multiple albums exist, **When** main page displays albums, **Then** albums are sorted chronologically by their date grouping
-4. **Given** photos with different dates are added to an album, **When** album date is determined, **Then** album uses the date of the earliest or most representative photo
-5. **Given** user wants to add more photos to existing album, **When** user selects photos, **Then** photos are added to the album while maintaining chronological order
+1. **Given** user is on the main page, **When** user initiates "create album" action, **Then** a new album is created and user is prompted to add photos
+2. **Given** user is prompted to add photos after album creation, **When** user skips or cancels, **Then** empty album is saved and displayed on main page
+3. **Given** a new album exists, **When** user adds photos to the album, **Then** photos are stored in the album and the album's date is set based on the earliest photo's date
+4. **Given** multiple albums exist, **When** main page displays albums, **Then** albums are sorted chronologically by their date grouping
+5. **Given** photos with different dates are added to an album, **When** album date is determined, **Then** album uses the earliest photo's date
+6. **Given** user wants to add photos to an album, **When** user initiates add photos action, **Then** file picker dialog opens with multi-select capability
+7. **Given** user selects multiple photos in file picker, **When** user confirms selection, **Then** all selected photos are added to the album
 
 ---
 
@@ -62,13 +74,14 @@ Users can manually reorder albums on the main page by dragging and dropping them
 
 ### Edge Cases
 
-- What happens when an album contains no photos (empty album)?
+- Empty albums are displayed on main page with placeholder icon and "No photos" text
 - What happens when a photo file is missing or corrupted?
 - What happens when user tries to drag an album but accidentally clicks?
 - How does the system handle very large albums (1000+ photos)?
 - What happens when multiple photos have identical timestamps?
 - How does the system handle photos without date metadata?
 - What happens when user attempts to add duplicate photos to the same album?
+- How does the system indicate which albums contain a specific photo?
 
 ## Requirements *(mandatory)*
 
@@ -78,21 +91,21 @@ Users can manually reorder albums on the main page by dragging and dropping them
 - **FR-002**: System MUST organize albums by date groupings automatically
 - **FR-003**: System MUST prevent albums from being nested within other albums
 - **FR-004**: System MUST display photos within an album in a tile-like grid interface
-- **FR-005**: System MUST allow users to create new photo albums
-- **FR-006**: System MUST allow users to add photos to existing albums
+- **FR-005**: System MUST allow users to create new photo albums with optional prompt to add photos immediately (user can skip)
+- **FR-006**: System MUST allow users to add photos to existing albums via file picker with multi-select capability (photos can exist in multiple albums simultaneously)
 - **FR-007**: System MUST extract or infer date information from photos to group albums chronologically
 - **FR-008**: System MUST support drag-and-drop reordering of albums on the main page
 - **FR-009**: System MUST persist album order when manually reordered by user
 - **FR-010**: System MUST maintain photo tile preview quality while optimizing load performance
-- **FR-011**: System MUST handle albums containing zero photos without errors
+- **FR-011**: System MUST display empty albums (zero photos) with placeholder icon and "No photos" text indication
 - **FR-012**: System MUST gracefully handle missing or corrupted photo files by showing placeholder or error indicator
 - **FR-013**: System MUST allow users to open and close albums to view detailed photo grid
 - **FR-014**: System MUST display album date labels clearly on the main page
 
 ### Key Entities
 
-- **Album**: Represents a collection of photos. Has a date grouping (derived from photos), a display order, and contains zero or more photos. Albums exist independently and are never nested within other albums.
-- **Photo**: Represents an individual photo file. Has metadata including date taken, file location, thumbnail preview. Photos belong to one album at a time.
+- **Album**: Represents a collection of photos. Has a date grouping (derived from the earliest photo's date), a display order, and contains zero or more photos. Albums exist independently and are never nested within other albums.
+- **Photo**: Represents an individual photo file. Has metadata including date taken, file location, thumbnail preview. Photos can belong to multiple albums simultaneously (reference model - photos are linked to albums, not moved).
 - **Main Page View**: The primary interface showing all albums in order. Supports drag-and-drop reordering and album navigation.
 - **Album View**: The detailed view of a single album showing its photos in a tile grid layout.
 
